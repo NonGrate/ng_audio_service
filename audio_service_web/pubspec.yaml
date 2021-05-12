@@ -14,7 +14,7 @@ dependencies:
     # path: ../audio_service_platform_interface
     git:
       url: https://github.com/NonGrate/ng_audio_service.git
-      ref: c377b6564eabe2253a9800c0a34c140c25ac777c
+      ref: one-isolate
       path: audio_service_platform_interface
 
 
