@@ -109,7 +109,7 @@ class PlaybackState {
   /// Up to 3 indices of the [controls] that should appear in Android's compact
   /// media notification view. When the notification is expanded, all [controls]
   /// will be shown.
-  final List<int>? androidCompactActionIndices;
+  final List<int> androidCompactActionIndices;
 
   /// The set of system actions currently enabled. This is for specifying any
   /// other [MediaAction]s that are not supported by [controls], because they do
@@ -154,10 +154,10 @@ class PlaybackState {
   final DateTime updateTime;
 
   /// The error code when [processingState] is [AudioProcessingState.error].
-  final int? errorCode;
+  final int errorCode;
 
   /// The error message when [processingState] is [AudioProcessingState.error].
-  final String? errorMessage;
+  final String errorMessage;
 
   /// The current repeat mode.
   final AudioServiceRepeatMode repeatMode;
@@ -169,7 +169,7 @@ class PlaybackState {
   final bool captioningEnabled;
 
   /// The index of the current item in the queue, if any.
-  final int? queueIndex;
+  final int queueIndex;
 
   /// Creates a [PlaybackState] with given field values, and with [updateTime]
   /// defaulting to [DateTime.now].
@@ -182,7 +182,7 @@ class PlaybackState {
     this.updatePosition = Duration.zero,
     this.bufferedPosition = Duration.zero,
     this.speed = 1.0,
-    DateTime? updateTime,
+    DateTime updateTime,
     this.errorCode,
     this.errorMessage,
     this.repeatMode = AudioServiceRepeatMode.none,
@@ -247,17 +247,17 @@ abstract class PlaybackStateCopyWith {
     AudioProcessingState processingState,
     bool playing,
     List<MediaControl> controls,
-    List<int>? androidCompactActionIndices,
+    List<int> androidCompactActionIndices,
     Set<MediaAction> systemActions,
     Duration updatePosition,
     Duration bufferedPosition,
     double speed,
-    int? errorCode,
-    String? errorMessage,
+    int errorCode,
+    String errorMessage,
     AudioServiceRepeatMode repeatMode,
     AudioServiceShuffleMode shuffleMode,
     bool captioningEnabled,
-    int? queueIndex,
+    int queueIndex,
   });
 }
 
@@ -273,20 +273,20 @@ class _PlaybackStateCopyWith extends PlaybackStateCopyWith {
 
   @override
   PlaybackState call({
-    Object? processingState = _fakeNull,
-    Object? playing = _fakeNull,
-    Object? controls = _fakeNull,
-    Object? androidCompactActionIndices = _fakeNull,
-    Object? systemActions = _fakeNull,
-    Object? updatePosition = _fakeNull,
-    Object? bufferedPosition = _fakeNull,
-    Object? speed = _fakeNull,
-    Object? errorCode = _fakeNull,
-    Object? errorMessage = _fakeNull,
-    Object? repeatMode = _fakeNull,
-    Object? shuffleMode = _fakeNull,
-    Object? captioningEnabled = _fakeNull,
-    Object? queueIndex = _fakeNull,
+    Object processingState = _fakeNull,
+    Object playing = _fakeNull,
+    Object controls = _fakeNull,
+    Object androidCompactActionIndices = _fakeNull,
+    Object systemActions = _fakeNull,
+    Object updatePosition = _fakeNull,
+    Object bufferedPosition = _fakeNull,
+    Object speed = _fakeNull,
+    Object errorCode = _fakeNull,
+    Object errorMessage = _fakeNull,
+    Object repeatMode = _fakeNull,
+    Object shuffleMode = _fakeNull,
+    Object captioningEnabled = _fakeNull,
+    Object queueIndex = _fakeNull,
   }) =>
       PlaybackState(
         processingState: processingState == _fakeNull
@@ -298,7 +298,7 @@ class _PlaybackStateCopyWith extends PlaybackStateCopyWith {
             : controls as List<MediaControl>,
         androidCompactActionIndices: androidCompactActionIndices == _fakeNull
             ? value.androidCompactActionIndices
-            : androidCompactActionIndices as List<int>?,
+            : androidCompactActionIndices as List<int>,
         systemActions: systemActions == _fakeNull
             ? value.systemActions
             : systemActions as Set<MediaAction>,
@@ -309,10 +309,10 @@ class _PlaybackStateCopyWith extends PlaybackStateCopyWith {
             ? value.bufferedPosition
             : bufferedPosition as Duration,
         speed: speed == _fakeNull ? value.speed : speed as double,
-        errorCode: errorCode == _fakeNull ? value.errorCode : errorCode as int?,
+        errorCode: errorCode == _fakeNull ? value.errorCode : errorCode as int,
         errorMessage: errorMessage == _fakeNull
             ? value.errorMessage
-            : errorMessage as String?,
+            : errorMessage as String,
         repeatMode: repeatMode == _fakeNull
             ? value.repeatMode
             : repeatMode as AudioServiceRepeatMode,
@@ -323,7 +323,7 @@ class _PlaybackStateCopyWith extends PlaybackStateCopyWith {
             ? value.captioningEnabled
             : captioningEnabled as bool,
         queueIndex:
-            queueIndex == _fakeNull ? value.queueIndex : queueIndex as int?,
+            queueIndex == _fakeNull ? value.queueIndex : queueIndex as int,
       );
 }
 
@@ -358,7 +358,7 @@ enum RatingStyle {
 /// A rating to attach to a MediaItem.
 class Rating {
   final RatingStyle _type;
-  final Object? _value;
+  final Object _value;
 
   const Rating._(this._type, this._value);
 
@@ -403,7 +403,7 @@ class Rating {
   /// if it is unrated.
   double getPercentRating() {
     if (_type != RatingStyle.percentage) return -1;
-    final localValue = _value as double?;
+    final localValue = _value as double;
     if (localValue == null || localValue < 0 || localValue > 100) return -1;
     return localValue;
   }
@@ -417,7 +417,7 @@ class Rating {
         _type != RatingStyle.range5stars) {
       return -1;
     }
-    return _value as int? ?? -1;
+    return _value as int ?? -1;
   }
 
   /// Returns true if the rating is "heart selected" or false if the
@@ -425,7 +425,7 @@ class Rating {
   /// or if it is unrated.
   bool hasHeart() {
     if (_type != RatingStyle.heart) return false;
-    return _value as bool? ?? false;
+    return _value as bool ?? false;
   }
 
   /// Returns true if the rating is "thumb up" or false if the rating
@@ -433,7 +433,7 @@ class Rating {
   /// it is unrated.
   bool isThumbUp() {
     if (_type != RatingStyle.thumbUpDown) return false;
-    return _value as bool? ?? false;
+    return _value as bool ?? false;
   }
 
   /// Return whether there is a rating value available.
@@ -461,44 +461,44 @@ class MediaItem {
   final String title;
 
   /// The artist of this media item.
-  final String? artist;
+  final String artist;
 
   /// The genre of this media item.
-  final String? genre;
+  final String genre;
 
   /// The duration of this media item.
-  final Duration? duration;
+  final Duration duration;
 
   /// The artwork for this media item as a uri.
-  final Uri? artUri;
+  final Uri artUri;
 
   /// Whether this is playable (i.e. not a folder).
-  final bool? playable;
+  final bool playable;
 
   /// Override the default title for display purposes.
-  final String? displayTitle;
+  final String displayTitle;
 
   /// Override the default subtitle for display purposes.
-  final String? displaySubtitle;
+  final String displaySubtitle;
 
   /// Override the default description for display purposes.
-  final String? displayDescription;
+  final String displayDescription;
 
   /// The rating of the media item.
-  final Rating? rating;
+  final Rating rating;
 
   /// A map of additional metadata for the media item.
   ///
   /// The values must be integers or strings.
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   /// Creates a [MediaItem].
   ///
   /// The [id] must be unique for each instance.
   const MediaItem({
-    required this.id,
-    required this.album,
-    required this.title,
+    @required this.id,
+    @required this.album,
+    @required this.title,
     this.artist,
     this.genre,
     this.duration,
@@ -547,16 +547,16 @@ abstract class MediaItemCopyWith {
     String id,
     String album,
     String title,
-    String? artist,
-    String? genre,
-    Duration? duration,
-    Uri? artUri,
-    bool? playable,
-    String? displayTitle,
-    String? displaySubtitle,
-    String? displayDescription,
-    Rating? rating,
-    Map<String, dynamic>? extras,
+    String artist,
+    String genre,
+    Duration duration,
+    Uri artUri,
+    bool playable,
+    String displayTitle,
+    String displaySubtitle,
+    String displayDescription,
+    Rating rating,
+    Map<String, dynamic> extras,
   });
 }
 
@@ -572,43 +572,43 @@ class _MediaItemCopyWith extends MediaItemCopyWith {
 
   @override
   MediaItem call({
-    Object? id = _fakeNull,
-    Object? album = _fakeNull,
-    Object? title = _fakeNull,
-    Object? artist = _fakeNull,
-    Object? genre = _fakeNull,
-    Object? duration = _fakeNull,
-    Object? artUri = _fakeNull,
-    Object? playable = _fakeNull,
-    Object? displayTitle = _fakeNull,
-    Object? displaySubtitle = _fakeNull,
-    Object? displayDescription = _fakeNull,
-    Object? rating = _fakeNull,
-    Object? extras = _fakeNull,
+    Object id = _fakeNull,
+    Object album = _fakeNull,
+    Object title = _fakeNull,
+    Object artist = _fakeNull,
+    Object genre = _fakeNull,
+    Object duration = _fakeNull,
+    Object artUri = _fakeNull,
+    Object playable = _fakeNull,
+    Object displayTitle = _fakeNull,
+    Object displaySubtitle = _fakeNull,
+    Object displayDescription = _fakeNull,
+    Object rating = _fakeNull,
+    Object extras = _fakeNull,
   }) =>
       MediaItem(
         id: id == _fakeNull ? value.id : id as String,
         album: album == _fakeNull ? value.album : album as String,
         title: title == _fakeNull ? value.title : title as String,
-        artist: artist == _fakeNull ? value.artist : artist as String?,
-        genre: genre == _fakeNull ? value.genre : genre as String?,
+        artist: artist == _fakeNull ? value.artist : artist as String,
+        genre: genre == _fakeNull ? value.genre : genre as String,
         duration:
-            duration == _fakeNull ? value.duration : duration as Duration?,
-        artUri: artUri == _fakeNull ? value.artUri : artUri as Uri?,
-        playable: playable == _fakeNull ? value.playable : playable as bool?,
+            duration == _fakeNull ? value.duration : duration as Duration,
+        artUri: artUri == _fakeNull ? value.artUri : artUri as Uri,
+        playable: playable == _fakeNull ? value.playable : playable as bool,
         displayTitle: displayTitle == _fakeNull
             ? value.displayTitle
-            : displayTitle as String?,
+            : displayTitle as String,
         displaySubtitle: displaySubtitle == _fakeNull
             ? value.displaySubtitle
-            : displaySubtitle as String?,
+            : displaySubtitle as String,
         displayDescription: displayDescription == _fakeNull
             ? value.displayDescription
-            : displayDescription as String?,
-        rating: rating == _fakeNull ? value.rating : rating as Rating?,
+            : displayDescription as String,
+        rating: rating == _fakeNull ? value.rating : rating as Rating,
         extras: extras == _fakeNull
             ? value.extras
-            : extras as Map<String, dynamic>?,
+            : extras as Map<String, dynamic>,
       );
 }
 
@@ -706,9 +706,9 @@ class MediaControl {
   final MediaAction action;
 
   const MediaControl({
-    required this.androidIcon,
-    required this.label,
-    required this.action,
+    @required this.androidIcon,
+    @required this.label,
+    @required this.action,
   });
 
   MediaControlMessage _toMessage() => MediaControlMessage(
@@ -727,11 +727,11 @@ class MediaControl {
 class AudioService {
   /// The cache to use when loading artwork.
   /// Defaults to [DefaultCacheManager].
-  static BaseCacheManager get cacheManager => _cacheManager!;
-  static BaseCacheManager? _cacheManager;
+  static BaseCacheManager get cacheManager => _cacheManager;
+  static BaseCacheManager _cacheManager;
 
-  static late AudioServiceConfig _config;
-  static late AudioHandler _handler;
+  static AudioServiceConfig _config;
+  static AudioHandler _handler;
 
   /// The current configuration.
   static AudioServiceConfig get config => _config;
@@ -752,9 +752,9 @@ class AudioService {
       _notificationClickEvent;
 
   // ignore: close_sinks
-  static BehaviorSubject<Duration>? _positionSubject;
+  static BehaviorSubject<Duration> _positionSubject;
 
-  static late ReceivePort _customActionReceivePort;
+  static ReceivePort _customActionReceivePort;
 
   /// Connect to the [AudioHandler] from another isolate. The [AudioHandler]
   /// must have been initialised via [init] prior to connecting.
@@ -773,9 +773,9 @@ class AudioService {
   /// display in the media notification and lock screen. This defaults to
   /// [DefaultCacheManager].
   static Future<T> init<T extends AudioHandler>({
-    required T builder(),
-    AudioServiceConfig? config,
-    BaseCacheManager? cacheManager,
+    @required T builder(),
+    AudioServiceConfig config,
+    BaseCacheManager cacheManager,
   }) async {
     assert(_cacheManager == null);
     config ??= AudioServiceConfig();
@@ -799,17 +799,17 @@ class AudioService {
             break;
           case 'prepareFromMediaId':
             await _handler.prepareFromMediaId(
-                request.arguments![0], request.arguments![1]);
+                request.arguments[0], request.arguments[1]);
             request.sendPort.send(null);
             break;
           case 'prepareFromSearch':
             await _handler.prepareFromSearch(
-                request.arguments![0], request.arguments![1]);
+                request.arguments[0], request.arguments[1]);
             request.sendPort.send(null);
             break;
           case 'prepareFromUri':
             await _handler.prepareFromUri(
-                request.arguments![0], request.arguments![1]);
+                request.arguments[0], request.arguments[1]);
             request.sendPort.send(null);
             break;
           case 'play':
@@ -818,21 +818,21 @@ class AudioService {
             break;
           case 'playFromMediaId':
             await _handler.playFromMediaId(
-                request.arguments![0], request.arguments![1]);
+                request.arguments[0], request.arguments[1]);
             request.sendPort.send(null);
             break;
           case 'playFromSearch':
             await _handler.playFromSearch(
-                request.arguments![0], request.arguments![1]);
+                request.arguments[0], request.arguments[1]);
             request.sendPort.send(null);
             break;
           case 'playFromUri':
             await _handler.playFromUri(
-                request.arguments![0], request.arguments![1]);
+                request.arguments[0], request.arguments[1]);
             request.sendPort.send(null);
             break;
           case 'playMediaItem':
-            await _handler.playMediaItem(request.arguments![0]);
+            await _handler.playMediaItem(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'pause':
@@ -840,7 +840,7 @@ class AudioService {
             request.sendPort.send(null);
             break;
           case 'click':
-            await _handler.click(request.arguments![0]);
+            await _handler.click(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'stop':
@@ -848,32 +848,32 @@ class AudioService {
             request.sendPort.send(null);
             break;
           case 'addQueueItem':
-            await _handler.addQueueItem(request.arguments![0]);
+            await _handler.addQueueItem(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'addQueueItems':
-            await _handler.addQueueItems(request.arguments![0]);
+            await _handler.addQueueItems(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'insertQueueItem':
             await _handler.insertQueueItem(
-                request.arguments![0], request.arguments![1]);
+                request.arguments[0], request.arguments[1]);
             request.sendPort.send(null);
             break;
           case 'updateQueue':
-            await _handler.updateQueue(request.arguments![0]);
+            await _handler.updateQueue(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'updateMediaItem':
-            await _handler.updateMediaItem(request.arguments![0]);
+            await _handler.updateMediaItem(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'removeQueueItem':
-            await _handler.removeQueueItem(request.arguments![0]);
+            await _handler.removeQueueItem(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'removeQueueItemAt':
-            await _handler.removeQueueItemAt(request.arguments![0]);
+            await _handler.removeQueueItemAt(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'skipToNext':
@@ -893,45 +893,45 @@ class AudioService {
             request.sendPort.send(null);
             break;
           case 'skipToQueueItem':
-            await _handler.skipToQueueItem(request.arguments![0]);
+            await _handler.skipToQueueItem(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'seek':
-            await _handler.seek(request.arguments![0]);
+            await _handler.seek(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'setRating':
             await _handler.setRating(
-                request.arguments![0], request.arguments![1]);
+                request.arguments[0], request.arguments[1]);
             request.sendPort.send(null);
             break;
           case 'setCaptioningEnabled':
-            await _handler.setCaptioningEnabled(request.arguments![0]);
+            await _handler.setCaptioningEnabled(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'setRepeatMode':
-            await _handler.setRepeatMode(request.arguments![0]);
+            await _handler.setRepeatMode(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'setShuffleMode':
-            await _handler.setShuffleMode(request.arguments![0]);
+            await _handler.setShuffleMode(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'seekBackward':
-            await _handler.seekBackward(request.arguments![0]);
+            await _handler.seekBackward(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'seekForward':
-            await _handler.seekForward(request.arguments![0]);
+            await _handler.seekForward(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'setSpeed':
-            await _handler.setSpeed(request.arguments![0]);
+            await _handler.setSpeed(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'customAction':
             await _handler.customAction(
-                request.arguments![0], request.arguments![1]);
+                request.arguments[0], request.arguments[1]);
             request.sendPort.send(null);
             break;
           case 'onTaskRemoved':
@@ -944,31 +944,31 @@ class AudioService {
             break;
           case 'getChildren':
             request.sendPort.send(await _handler.getChildren(
-                request.arguments![0], request.arguments![1]));
+                request.arguments[0], request.arguments[1]));
             break;
           case 'subscribeToChildren':
-            final parentMediaId = request.arguments![0] as String;
-            final sendPort = request.arguments![1] as SendPort?;
+            final parentMediaId = request.arguments[0] as String;
+            final sendPort = request.arguments[1] as SendPort;
             _handler
                 .subscribeToChildren(parentMediaId)
-                .listen((Map<String, dynamic>? options) {
-              sendPort!.send(options);
+                .listen((Map<String, dynamic> options) {
+              sendPort.send(options);
             });
             break;
           case 'getMediaItem':
             request.sendPort
-                .send(await _handler.getMediaItem(request.arguments![0]));
+                .send(await _handler.getMediaItem(request.arguments[0]));
             break;
           case 'search':
             request.sendPort.send(await _handler.search(
-                request.arguments![0], request.arguments![1]));
+                request.arguments[0], request.arguments[1]));
             break;
           case 'androidAdjustRemoteVolume':
-            await _handler.androidAdjustRemoteVolume(request.arguments![0]);
+            await _handler.androidAdjustRemoteVolume(request.arguments[0]);
             request.sendPort.send(null);
             break;
           case 'androidSetRemoteVolume':
-            await _handler.androidSetRemoteVolume(request.arguments![0]);
+            await _handler.androidSetRemoteVolume(request.arguments[0]);
             request.sendPort.send(null);
             break;
         }
@@ -977,17 +977,17 @@ class AudioService {
       IsolateNameServer.registerPortWithName(
           _customActionReceivePort.sendPort, _isolatePortName);
     }
-    _handler.mediaItem.listen((MediaItem? mediaItem) async {
+    _handler.mediaItem.listen((MediaItem mediaItem) async {
       if (mediaItem == null) return;
       final artUri = mediaItem.artUri;
       if (artUri != null) {
         // We potentially need to fetch the art.
-        String? filePath;
+        String filePath;
         if (artUri.scheme == 'file') {
           filePath = artUri.toFilePath();
         } else {
-          final FileInfo? fileInfo =
-              await cacheManager!.getFileFromMemory(artUri.toString());
+          final FileInfo fileInfo =
+              await cacheManager.getFileFromMemory(artUri.toString());
           filePath = fileInfo?.file.path;
           if (filePath == null) {
             // We haven't fetched the art yet, so show the metadata now, and again
@@ -1020,7 +1020,7 @@ class AudioService {
         playbackInfo: playbackInfo._toMessage(),
       ));
     });
-    _handler.queue.listen((List<MediaItem>? queue) async {
+    _handler.queue.listen((List<MediaItem> queue) async {
       if (queue == null) return;
       if (_config.preloadArtwork) {
         _loadAllArtwork(queue);
@@ -1048,14 +1048,14 @@ class AudioService {
   static Stream<Duration> getPositionStream() {
     if (_positionSubject == null) {
       _positionSubject = BehaviorSubject<Duration>(sync: true);
-      _positionSubject!.addStream(
+      _positionSubject.addStream(
         createPositionStream(
             steps: 800,
             minPeriod: Duration(milliseconds: 16),
             maxPeriod: Duration(milliseconds: 200)),
       );
     }
-    return _positionSubject!.stream;
+    return _positionSubject.stream;
   }
 
   /// Creates a new stream periodically tracking the current position. The
@@ -1074,12 +1074,12 @@ class AudioService {
   }) {
     assert(minPeriod <= maxPeriod);
     assert(minPeriod > Duration.zero);
-    Duration? last;
+    Duration last;
     // ignore: close_sinks
-    late StreamController<Duration> controller;
-    late StreamSubscription<MediaItem?> mediaItemSubscription;
-    late StreamSubscription<PlaybackState> playbackStateSubscription;
-    Timer? currentTimer;
+    StreamController<Duration> controller;
+    StreamSubscription<MediaItem> mediaItemSubscription;
+    StreamSubscription<PlaybackState> playbackStateSubscription;
+    Timer currentTimer;
     Duration duration() => _handler.mediaItem.value?.duration ?? Duration.zero;
     Duration step() {
       var s = duration() ~/ steps;
@@ -1088,9 +1088,9 @@ class AudioService {
       return s;
     }
 
-    void yieldPosition(Timer? timer) {
+    void yieldPosition(Timer timer) {
       if (last != _handler.playbackState.value?.position) {
-        controller.add((last = _handler.playbackState.value?.position)!);
+        controller.add((last = _handler.playbackState.value?.position));
       }
     }
 
@@ -1098,7 +1098,7 @@ class AudioService {
       sync: true,
       onListen: () {
         mediaItemSubscription =
-            _handler.mediaItem.listen((MediaItem? mediaItem) {
+            _handler.mediaItem.listen((MediaItem mediaItem) {
           // Potentially a new duration
           currentTimer?.cancel();
           currentTimer = Timer.periodic(step(), yieldPosition);
@@ -1151,7 +1151,7 @@ class AudioService {
     }
   }
 
-  static Future<String?> _loadArtwork(MediaItem mediaItem) async {
+  static Future<String> _loadArtwork(MediaItem mediaItem) async {
     try {
       final artUri = mediaItem.artUri;
       if (artUri != null) {
@@ -1159,7 +1159,7 @@ class AudioService {
           return artUri.toFilePath();
         } else {
           final file =
-              await cacheManager.getSingleFile(mediaItem.artUri!.toString());
+              await cacheManager.getSingleFile(mediaItem.artUri.toString());
           return file.path;
         }
       }
@@ -1183,7 +1183,7 @@ class AudioService {
 
   /// Deprecated. Use [AudioHandler.getChildren] instead.
   @deprecated
-  static List<MediaItem>? get browseMediaChildren =>
+  static List<MediaItem> get browseMediaChildren =>
       _browseMediaChildrenSubject.value;
 
   /// Deprecated. Use [AudioHandler.playbackState] instead.
@@ -1198,20 +1198,20 @@ class AudioService {
 
   /// Deprecated. Use [AudioHandler.mediaItem] instead.
   @deprecated
-  static ValueStream<MediaItem?> get currentMediaItemStream =>
+  static ValueStream<MediaItem> get currentMediaItemStream =>
       _handler.mediaItem;
 
   /// Deprecated. Use `value` of [AudioHandler.mediaItem] instead.
   @deprecated
-  static MediaItem? get currentMediaItem => _handler.mediaItem.value;
+  static MediaItem get currentMediaItem => _handler.mediaItem.value;
 
   /// Deprecated. Use [AudioHandler.queue] instead.
   @deprecated
-  static ValueStream<List<MediaItem>?> get queueStream => _handler.queue;
+  static ValueStream<List<MediaItem>> get queueStream => _handler.queue;
 
   /// Deprecated. Use `value` of [AudioHandler.queue] instead.
   @deprecated
-  static List<MediaItem>? get queue => _handler.queue.value;
+  static List<MediaItem> get queue => _handler.queue.value;
 
   /// Deprecated. Use [AudioHandler.customEvent] instead.
   @deprecated
@@ -1227,7 +1227,7 @@ class AudioService {
   @deprecated
   static bool get running => runningStream.value ?? false;
 
-  static StreamSubscription? _childrenSubscription;
+  static StreamSubscription _childrenSubscription;
 
   /// Deprecated. Instead, subscribe directly to a parent's children via
   /// [AudioHandler.subscribeToChildren].
@@ -1237,7 +1237,7 @@ class AudioService {
     _childrenSubscription?.cancel();
     _childrenSubscription = _handler
         .subscribeToChildren(parentMediaId)
-        .listen((Map<String, dynamic>? options) async {
+        .listen((Map<String, dynamic> options) async {
       _browseMediaChildrenSubject
           .add(await _handler.getChildren(parentMediaId));
     });
@@ -1302,7 +1302,7 @@ class AudioService {
   /// Deprecated. Use [AudioHandler.skipToQueueItem] instead.
   @deprecated
   static Future<void> skipToQueueItem(String mediaId) async {
-    final queue = _handler.queue.value!;
+    final queue = _handler.queue.value;
     int index = queue.indexWhere((item) => item.id == mediaId);
     await _handler.skipToQueueItem(index);
   }
@@ -1383,10 +1383,10 @@ abstract class BackgroundAudioTask extends BaseAudioHandler {
   Future<List<MediaItem>> onLoadChildren(String parentMediaId) async => [];
 
   /// Deprecated. Replaced by [AudioHandler.click].
-  Future<void> onClick(MediaButton? button) async {
-    switch (button!) {
+  Future<void> onClick(MediaButton button) async {
+    switch (button) {
       case MediaButton.media:
-        if (playbackState.value!.playing) {
+        if (playbackState.value.playing) {
           await onPause();
         } else {
           await onPlay();
@@ -1454,7 +1454,7 @@ abstract class BackgroundAudioTask extends BaseAudioHandler {
 
   /// Deprecated. Replaced by [AudioHandler.setRating].
   Future<void> onSetRating(
-      Rating rating, Map<dynamic, dynamic>? extras) async {}
+      Rating rating, Map<dynamic, dynamic> extras) async {}
 
   /// Deprecated. Replaced by [AudioHandler.setRepeatMode].
   Future<void> onSetRepeatMode(AudioServiceRepeatMode repeatMode) async {}
@@ -1496,7 +1496,7 @@ abstract class BackgroundAudioTask extends BaseAudioHandler {
 
   @override
   Future<void> prepareFromMediaId(String mediaId,
-          [Map<String, dynamic>? extras]) =>
+          [Map<String, dynamic> extras]) =>
       onPrepareFromMediaId(mediaId);
 
   @override
@@ -1504,7 +1504,7 @@ abstract class BackgroundAudioTask extends BaseAudioHandler {
 
   @override
   Future<void> playFromMediaId(String mediaId,
-          [Map<String, dynamic>? extras]) =>
+          [Map<String, dynamic> extras]) =>
       onPlayFromMediaId(mediaId);
 
   @override
@@ -1573,7 +1573,7 @@ abstract class BackgroundAudioTask extends BaseAudioHandler {
   Future<void> seek(Duration position) => onSeekTo(position);
 
   @override
-  Future<void> setRating(Rating rating, Map<dynamic, dynamic>? extras) =>
+  Future<void> setRating(Rating rating, Map<dynamic, dynamic> extras) =>
       onSetRating(rating, extras);
 
   @override
@@ -1594,7 +1594,7 @@ abstract class BackgroundAudioTask extends BaseAudioHandler {
   Future<void> setSpeed(double speed) => onSetSpeed(speed);
 
   @override
-  Future<dynamic> customAction(String name, Map<String, dynamic>? extras) =>
+  Future<dynamic> customAction(String name, Map<String, dynamic> extras) =>
       onCustomAction(name, extras);
 
   @override
@@ -1602,7 +1602,7 @@ abstract class BackgroundAudioTask extends BaseAudioHandler {
 
   @override
   Future<List<MediaItem>> getChildren(String parentMediaId,
-          [Map<String, dynamic>? options]) =>
+          [Map<String, dynamic> options]) =>
       onLoadChildren(parentMediaId);
 }
 
@@ -1622,25 +1622,25 @@ abstract class AudioHandler {
 
   /// Prepare a specific media item for playback.
   Future<void> prepareFromMediaId(String mediaId,
-      [Map<String, dynamic>? extras]);
+      [Map<String, dynamic> extras]);
 
   /// Prepare playback from a search query.
-  Future<void> prepareFromSearch(String query, [Map<String, dynamic>? extras]);
+  Future<void> prepareFromSearch(String query, [Map<String, dynamic> extras]);
 
   /// Prepare a media item represented by a Uri for playback.
-  Future<void> prepareFromUri(Uri uri, [Map<String, dynamic>? extras]);
+  Future<void> prepareFromUri(Uri uri, [Map<String, dynamic> extras]);
 
   /// Start or resume playback.
   Future<void> play();
 
   /// Play a specific media item.
-  Future<void> playFromMediaId(String mediaId, [Map<String, dynamic>? extras]);
+  Future<void> playFromMediaId(String mediaId, [Map<String, dynamic> extras]);
 
   /// Begin playback from a search query.
-  Future<void> playFromSearch(String query, [Map<String, dynamic>? extras]);
+  Future<void> playFromSearch(String query, [Map<String, dynamic> extras]);
 
   /// Play a media item represented by a Uri.
-  Future<void> playFromUri(Uri uri, [Map<String, dynamic>? extras]);
+  Future<void> playFromUri(Uri uri, [Map<String, dynamic> extras]);
 
   /// Play a specific media item.
   Future<void> playMediaItem(MediaItem mediaItem);
@@ -1696,7 +1696,7 @@ abstract class AudioHandler {
   Future<void> seek(Duration position);
 
   /// Set the rating.
-  Future<void> setRating(Rating rating, Map<dynamic, dynamic>? extras);
+  Future<void> setRating(Rating rating, Map<dynamic, dynamic> extras);
 
   Future<void> setCaptioningEnabled(bool enabled);
 
@@ -1716,7 +1716,7 @@ abstract class AudioHandler {
   Future<void> setSpeed(double speed);
 
   /// A mechanism to support app-specific actions.
-  Future<dynamic> customAction(String name, Map<String, dynamic>? extras);
+  Future<dynamic> customAction(String name, Map<String, dynamic> extras);
 
   /// Handle the task being swiped away in the task manager (Android).
   Future<void> onTaskRemoved();
@@ -1726,20 +1726,20 @@ abstract class AudioHandler {
 
   /// Get the children of a parent media item.
   Future<List<MediaItem>> getChildren(String parentMediaId,
-      [Map<String, dynamic>? options]);
+      [Map<String, dynamic> options]);
 
   /// Get a value stream that emits service-specific options to send to the
   /// client whenever the children under the specified parent change. The
   /// emitted options may contain information about what changed. A client that
   /// is subscribed to this stream should call [getChildren] to obtain the
   /// changed children.
-  ValueStream<Map<String, dynamic>?> subscribeToChildren(String parentMediaId);
+  ValueStream<Map<String, dynamic>> subscribeToChildren(String parentMediaId);
 
   /// Get a particular media item.
-  Future<MediaItem?> getMediaItem(String mediaId);
+  Future<MediaItem> getMediaItem(String mediaId);
 
   /// Search for media items.
-  Future<List<MediaItem>> search(String query, [Map<String, dynamic>? extras]);
+  Future<List<MediaItem>> search(String query, [Map<String, dynamic> extras]);
 
   /// Set the remote volume on Android. This works only when using
   /// [RemoteAndroidPlaybackInfo].
@@ -1753,13 +1753,13 @@ abstract class AudioHandler {
   ValueStream<PlaybackState> get playbackState;
 
   /// A value stream of the current queue.
-  ValueStream<List<MediaItem>?> get queue;
+  ValueStream<List<MediaItem>> get queue;
 
   /// A value stream of the current queueTitle.
   ValueStream<String> get queueTitle;
 
   /// A value stream of the current media item.
-  ValueStream<MediaItem?> get mediaItem;
+  ValueStream<MediaItem> get mediaItem;
 
   /// A value stream of the current rating style.
   ValueStream<RatingStyle> get ratingStyle;
@@ -1782,13 +1782,13 @@ class SwitchAudioHandler extends CompositeAudioHandler {
   final BehaviorSubject<PlaybackState> playbackState = BehaviorSubject();
   @override
   // ignore: close_sinks
-  final BehaviorSubject<List<MediaItem>?> queue = BehaviorSubject();
+  final BehaviorSubject<List<MediaItem>> queue = BehaviorSubject();
   @override
   // ignore: close_sinks
   final BehaviorSubject<String> queueTitle = BehaviorSubject();
   @override
   // ignore: close_sinks
-  final BehaviorSubject<MediaItem?> mediaItem = BehaviorSubject();
+  final BehaviorSubject<MediaItem> mediaItem = BehaviorSubject();
   @override
   // ignore: close_sinks
   final BehaviorSubject<AndroidPlaybackInfo> androidPlaybackInfo =
@@ -1803,14 +1803,14 @@ class SwitchAudioHandler extends CompositeAudioHandler {
   // ignore: close_sinks
   final BehaviorSubject<dynamic> customState = BehaviorSubject();
 
-  StreamSubscription<PlaybackState>? playbackStateSubscription;
-  StreamSubscription<List<MediaItem>?>? queueSubscription;
-  StreamSubscription<String>? queueTitleSubscription;
-  StreamSubscription<MediaItem?>? mediaItemSubscription;
-  StreamSubscription<AndroidPlaybackInfo>? androidPlaybackInfoSubscription;
-  StreamSubscription<RatingStyle>? ratingStyleSubscription;
-  StreamSubscription<dynamic>? customEventSubscription;
-  StreamSubscription<dynamic>? customStateSubscription;
+  StreamSubscription<PlaybackState> playbackStateSubscription;
+  StreamSubscription<List<MediaItem>> queueSubscription;
+  StreamSubscription<String> queueTitleSubscription;
+  StreamSubscription<MediaItem> mediaItemSubscription;
+  StreamSubscription<AndroidPlaybackInfo> androidPlaybackInfoSubscription;
+  StreamSubscription<RatingStyle> ratingStyleSubscription;
+  StreamSubscription<dynamic> customEventSubscription;
+  StreamSubscription<dynamic> customStateSubscription;
 
   SwitchAudioHandler(AudioHandler inner) : super(inner) {
     this.inner = inner;
@@ -1863,18 +1863,18 @@ class CompositeAudioHandler extends AudioHandler {
   @override
   @mustCallSuper
   Future<void> prepareFromMediaId(String mediaId,
-          [Map<String, dynamic>? extras]) =>
+          [Map<String, dynamic> extras]) =>
       _inner.prepareFromMediaId(mediaId, extras);
 
   @override
   @mustCallSuper
   Future<void> prepareFromSearch(String query,
-          [Map<String, dynamic>? extras]) =>
+          [Map<String, dynamic> extras]) =>
       _inner.prepareFromSearch(query, extras);
 
   @override
   @mustCallSuper
-  Future<void> prepareFromUri(Uri uri, [Map<String, dynamic>? extras]) =>
+  Future<void> prepareFromUri(Uri uri, [Map<String, dynamic> extras]) =>
       _inner.prepareFromUri(uri, extras);
 
   @override
@@ -1884,17 +1884,17 @@ class CompositeAudioHandler extends AudioHandler {
   @override
   @mustCallSuper
   Future<void> playFromMediaId(String mediaId,
-          [Map<String, dynamic>? extras]) =>
+          [Map<String, dynamic> extras]) =>
       _inner.playFromMediaId(mediaId, extras);
 
   @override
   @mustCallSuper
-  Future<void> playFromSearch(String query, [Map<String, dynamic>? extras]) =>
+  Future<void> playFromSearch(String query, [Map<String, dynamic> extras]) =>
       _inner.playFromSearch(query, extras);
 
   @override
   @mustCallSuper
-  Future<void> playFromUri(Uri uri, [Map<String, dynamic>? extras]) =>
+  Future<void> playFromUri(Uri uri, [Map<String, dynamic> extras]) =>
       _inner.playFromUri(uri, extras);
 
   @override
@@ -1974,7 +1974,7 @@ class CompositeAudioHandler extends AudioHandler {
 
   @override
   @mustCallSuper
-  Future<void> setRating(Rating rating, Map<dynamic, dynamic>? extras) =>
+  Future<void> setRating(Rating rating, Map<dynamic, dynamic> extras) =>
       _inner.setRating(rating, extras);
 
   @override
@@ -2006,7 +2006,7 @@ class CompositeAudioHandler extends AudioHandler {
 
   @override
   @mustCallSuper
-  Future<dynamic> customAction(String name, Map<String, dynamic>? extras) =>
+  Future<dynamic> customAction(String name, Map<String, dynamic> extras) =>
       _inner.customAction(name, extras);
 
   @override
@@ -2020,24 +2020,24 @@ class CompositeAudioHandler extends AudioHandler {
   @override
   @mustCallSuper
   Future<List<MediaItem>> getChildren(String parentMediaId,
-          [Map<String, dynamic>? options]) =>
+          [Map<String, dynamic> options]) =>
       _inner.getChildren(parentMediaId, options);
 
   @override
   @mustCallSuper
-  ValueStream<Map<String, dynamic>?> subscribeToChildren(
+  ValueStream<Map<String, dynamic>> subscribeToChildren(
           String parentMediaId) =>
       _inner.subscribeToChildren(parentMediaId);
 
   @override
   @mustCallSuper
-  Future<MediaItem?> getMediaItem(String mediaId) =>
+  Future<MediaItem> getMediaItem(String mediaId) =>
       _inner.getMediaItem(mediaId);
 
   @override
   @mustCallSuper
   Future<List<MediaItem>> search(String query,
-          [Map<String, dynamic>? extras]) =>
+          [Map<String, dynamic> extras]) =>
       _inner.search(query, extras);
 
   @override
@@ -2054,13 +2054,13 @@ class CompositeAudioHandler extends AudioHandler {
   ValueStream<PlaybackState> get playbackState => _inner.playbackState;
 
   @override
-  ValueStream<List<MediaItem>?> get queue => _inner.queue;
+  ValueStream<List<MediaItem>> get queue => _inner.queue;
 
   @override
   ValueStream<String> get queueTitle => _inner.queueTitle;
 
   @override
-  ValueStream<MediaItem?> get mediaItem => _inner.mediaItem;
+  ValueStream<MediaItem> get mediaItem => _inner.mediaItem;
 
   @override
   ValueStream<RatingStyle> get ratingStyle => _inner.ratingStyle;
@@ -2080,7 +2080,7 @@ class _IsolateRequest {
   /// The send port for sending the response of this request.
   final SendPort sendPort;
   final String method;
-  final List<dynamic>? arguments;
+  final List<dynamic> arguments;
 
   _IsolateRequest(this.sendPort, this.method, [this.arguments]);
 }
@@ -2088,7 +2088,7 @@ class _IsolateRequest {
 const _isolatePortName = 'com.ryanheise.audioservice.port';
 
 class _IsolateAudioHandler extends AudioHandler {
-  final _childrenSubjects = <String, BehaviorSubject<Map<String, dynamic>?>>{};
+  final _childrenSubjects = <String, BehaviorSubject<Map<String, dynamic>>>{};
 
   @override
   // ignore: close_sinks
@@ -2096,7 +2096,7 @@ class _IsolateAudioHandler extends AudioHandler {
       BehaviorSubject.seeded(PlaybackState());
   @override
   // ignore: close_sinks
-  final BehaviorSubject<List<MediaItem>?> queue =
+  final BehaviorSubject<List<MediaItem>> queue =
       BehaviorSubject.seeded(<MediaItem>[]);
   @override
   // TODO
@@ -2104,7 +2104,7 @@ class _IsolateAudioHandler extends AudioHandler {
   final BehaviorSubject<String> queueTitle = BehaviorSubject.seeded('');
   @override
   // ignore: close_sinks
-  final BehaviorSubject<MediaItem?> mediaItem = BehaviorSubject.seeded(null);
+  final BehaviorSubject<MediaItem> mediaItem = BehaviorSubject.seeded(null);
   @override
   // TODO
   // ignore: close_sinks
@@ -2133,16 +2133,16 @@ class _IsolateAudioHandler extends AudioHandler {
 
   @override
   Future<void> prepareFromMediaId(String mediaId,
-          [Map<String, dynamic>? extras]) =>
+          [Map<String, dynamic> extras]) =>
       _send('prepareFromMediaId', [mediaId, extras]);
 
   @override
   Future<void> prepareFromSearch(String query,
-          [Map<String, dynamic>? extras]) =>
+          [Map<String, dynamic> extras]) =>
       _send('prepareFromSearch', [query, extras]);
 
   @override
-  Future<void> prepareFromUri(Uri uri, [Map<String, dynamic>? extras]) =>
+  Future<void> prepareFromUri(Uri uri, [Map<String, dynamic> extras]) =>
       _send('prepareFromUri', [uri, extras]);
 
   @override
@@ -2150,15 +2150,15 @@ class _IsolateAudioHandler extends AudioHandler {
 
   @override
   Future<void> playFromMediaId(String mediaId,
-          [Map<String, dynamic>? extras]) =>
+          [Map<String, dynamic> extras]) =>
       _send('playFromMediaId', [mediaId, extras]);
 
   @override
-  Future<void> playFromSearch(String query, [Map<String, dynamic>? extras]) =>
+  Future<void> playFromSearch(String query, [Map<String, dynamic> extras]) =>
       _send('playFromSearch', [query, extras]);
 
   @override
-  Future<void> playFromUri(Uri uri, [Map<String, dynamic>? extras]) =>
+  Future<void> playFromUri(Uri uri, [Map<String, dynamic> extras]) =>
       _send('playFromUri', [uri, extras]);
 
   @override
@@ -2223,7 +2223,7 @@ class _IsolateAudioHandler extends AudioHandler {
   Future<void> seek(Duration position) => _send('seek', [position]);
 
   @override
-  Future<void> setRating(Rating rating, Map<dynamic, dynamic>? extras) =>
+  Future<void> setRating(Rating rating, Map<dynamic, dynamic> extras) =>
       _send('setRating', [rating, extras]);
 
   @override
@@ -2248,7 +2248,7 @@ class _IsolateAudioHandler extends AudioHandler {
   Future<void> setSpeed(double speed) => _send('setSpeed', [speed]);
 
   @override
-  Future<dynamic> customAction(String name, Map<String, dynamic>? arguments) =>
+  Future<dynamic> customAction(String name, Map<String, dynamic> arguments) =>
       _send('customAction', [name, arguments]);
 
   @override
@@ -2259,17 +2259,17 @@ class _IsolateAudioHandler extends AudioHandler {
 
   @override
   Future<List<MediaItem>> getChildren(String parentMediaId,
-          [Map<String, dynamic>? options]) async =>
+          [Map<String, dynamic> options]) async =>
       (await _send('getChildren', [parentMediaId, options])) as List<MediaItem>;
 
   @override
-  ValueStream<Map<String, dynamic>?> subscribeToChildren(String parentMediaId) {
+  ValueStream<Map<String, dynamic>> subscribeToChildren(String parentMediaId) {
     var childrenSubject = _childrenSubjects[parentMediaId];
     if (childrenSubject == null) {
       childrenSubject = _childrenSubjects[parentMediaId] = BehaviorSubject();
       final receivePort = ReceivePort();
       receivePort.listen((options) {
-        childrenSubject!.add(options);
+        childrenSubject.add(options);
       });
       _send('subscribeToChildren', [parentMediaId, receivePort.sendPort]);
     }
@@ -2277,12 +2277,12 @@ class _IsolateAudioHandler extends AudioHandler {
   }
 
   @override
-  Future<MediaItem?> getMediaItem(String mediaId) async =>
-      (await _send('getMediaItem', [mediaId])) as MediaItem?;
+  Future<MediaItem> getMediaItem(String mediaId) async =>
+      (await _send('getMediaItem', [mediaId])) as MediaItem;
 
   @override
   Future<List<MediaItem>> search(String query,
-          [Map<String, dynamic>? extras]) async =>
+          [Map<String, dynamic> extras]) async =>
       (await _send('search', [query, extras])) as List<MediaItem>;
 
   @override
@@ -2293,7 +2293,7 @@ class _IsolateAudioHandler extends AudioHandler {
   Future<void> androidSetRemoteVolume(int volumeIndex) =>
       _send('androidSetRemoteVolume', [volumeIndex]);
 
-  Future<dynamic> _send(String method, [List<dynamic>? arguments]) async {
+  Future<dynamic> _send(String method, [List<dynamic> arguments]) async {
     final sendPort = IsolateNameServer.lookupPortByName(_isolatePortName);
     if (sendPort == null) return null;
     final receivePort = ReceivePort();
@@ -2378,7 +2378,7 @@ class BaseAudioHandler extends AudioHandler {
   /// queue.add(queue + [additionalItem]);
   /// ```
   @override
-  final BehaviorSubject<List<MediaItem>?> queue =
+  final BehaviorSubject<List<MediaItem>> queue =
       BehaviorSubject.seeded(<MediaItem>[]);
 
   /// A controller for broadcasting the current queue title to the app's UI, media
@@ -2399,7 +2399,7 @@ class BaseAudioHandler extends AudioHandler {
   /// ```
   @override
   // ignore: close_sinks
-  final BehaviorSubject<MediaItem?> mediaItem = BehaviorSubject.seeded(null);
+  final BehaviorSubject<MediaItem> mediaItem = BehaviorSubject.seeded(null);
 
   /// A controller for broadcasting the current [AndroidPlaybackInfo] to the app's UI,
   /// media notification and other clients. Example usage:
@@ -2450,28 +2450,28 @@ class BaseAudioHandler extends AudioHandler {
 
   @override
   Future<void> prepareFromMediaId(String mediaId,
-      [Map<String, dynamic>? extras]) async {}
+      [Map<String, dynamic> extras]) async {}
 
   @override
   Future<void> prepareFromSearch(String query,
-      [Map<String, dynamic>? extras]) async {}
+      [Map<String, dynamic> extras]) async {}
 
   @override
-  Future<void> prepareFromUri(Uri uri, [Map<String, dynamic>? extras]) async {}
+  Future<void> prepareFromUri(Uri uri, [Map<String, dynamic> extras]) async {}
 
   @override
   Future<void> play() async {}
 
   @override
   Future<void> playFromMediaId(String mediaId,
-      [Map<String, dynamic>? extras]) async {}
+      [Map<String, dynamic> extras]) async {}
 
   @override
   Future<void> playFromSearch(String query,
-      [Map<String, dynamic>? extras]) async {}
+      [Map<String, dynamic> extras]) async {}
 
   @override
-  Future<void> playFromUri(Uri uri, [Map<String, dynamic>? extras]) async {}
+  Future<void> playFromUri(Uri uri, [Map<String, dynamic> extras]) async {}
 
   @override
   Future<void> playMediaItem(MediaItem mediaItem) async {}
@@ -2544,7 +2544,7 @@ class BaseAudioHandler extends AudioHandler {
   Future<void> seek(Duration position) async {}
 
   @override
-  Future<void> setRating(Rating rating, Map<dynamic, dynamic>? extras) async {}
+  Future<void> setRating(Rating rating, Map<dynamic, dynamic> extras) async {}
 
   @override
   Future<void> setCaptioningEnabled(bool enabled) async {}
@@ -2566,7 +2566,7 @@ class BaseAudioHandler extends AudioHandler {
 
   @override
   Future<dynamic> customAction(
-      String name, Map<String, dynamic>? arguments) async {}
+      String name, Map<String, dynamic> arguments) async {}
 
   @override
   Future<void> onTaskRemoved() async {}
@@ -2578,7 +2578,7 @@ class BaseAudioHandler extends AudioHandler {
 
   @override
   Future<List<MediaItem>> getChildren(String parentMediaId,
-          [Map<String, dynamic>? options]) async =>
+          [Map<String, dynamic> options]) async =>
       [];
 
   @override
@@ -2586,11 +2586,11 @@ class BaseAudioHandler extends AudioHandler {
       BehaviorSubject.seeded(<String, dynamic>{});
 
   @override
-  Future<MediaItem?> getMediaItem(String mediaId) async => null;
+  Future<MediaItem> getMediaItem(String mediaId) async => null;
 
   @override
   Future<List<MediaItem>> search(String query,
-          [Map<String, dynamic>? extras]) async =>
+          [Map<String, dynamic> extras]) async =>
       [];
 
   @override
@@ -2608,7 +2608,7 @@ class BaseAudioHandler extends AudioHandler {
 /// [seekForward] and [seekBackward] which are all defined in terms of your own
 /// implementation of [seek].
 mixin SeekHandler on BaseAudioHandler {
-  _Seeker? _seeker;
+  _Seeker _seeker;
 
   @override
   Future<void> fastForward() =>
@@ -2625,7 +2625,7 @@ mixin SeekHandler on BaseAudioHandler {
 
   /// Jumps away from the current position by [offset].
   Future<void> _seekRelative(Duration offset) async {
-    var newPosition = playbackState.value!.position + offset;
+    var newPosition = playbackState.value.position + offset;
     // Make sure we don't jump out of bounds.
     if (newPosition < Duration.zero) {
       newPosition = Duration.zero;
@@ -2645,7 +2645,7 @@ mixin SeekHandler on BaseAudioHandler {
     _seeker?.stop();
     if (begin && mediaItem.value?.duration != null) {
       _seeker = _Seeker(this, Duration(seconds: 10 * direction),
-          Duration(seconds: 1), mediaItem.value!.duration!)
+          Duration(seconds: 1), mediaItem.value.duration)
         ..start();
     }
   }
@@ -2669,7 +2669,7 @@ class _Seeker {
     _running = true;
     while (_running) {
       Duration newPosition =
-          handler.playbackState.value!.position + positionInterval;
+          handler.playbackState.value.position + positionInterval;
       if (newPosition < Duration.zero) newPosition = Duration.zero;
       if (newPosition > duration) newPosition = duration;
       handler.seek(newPosition);
@@ -2691,39 +2691,39 @@ class _Seeker {
 mixin QueueHandler on BaseAudioHandler {
   @override
   Future<void> addQueueItem(MediaItem mediaItem) async {
-    queue.add(queue.value!..add(mediaItem));
+    queue.add(queue.value..add(mediaItem));
     await super.addQueueItem(mediaItem);
   }
 
   @override
   Future<void> addQueueItems(List<MediaItem> mediaItems) async {
-    queue.add(queue.value!..addAll(mediaItems));
+    queue.add(queue.value..addAll(mediaItems));
     await super.addQueueItems(mediaItems);
   }
 
   @override
   Future<void> insertQueueItem(int index, MediaItem mediaItem) async {
-    queue.add(queue.value!..insert(index, mediaItem));
+    queue.add(queue.value..insert(index, mediaItem));
     await super.insertQueueItem(index, mediaItem);
   }
 
   @override
   Future<void> updateQueue(List<MediaItem> queue) async {
     this.queue.add(
-        this.queue.value!..replaceRange(0, this.queue.value!.length, queue));
+        this.queue.value..replaceRange(0, this.queue.value.length, queue));
     await super.updateQueue(queue);
   }
 
   @override
   Future<void> updateMediaItem(MediaItem mediaItem) async {
     this.queue.add(
-        this.queue.value!..[this.queue.value!.indexOf(mediaItem)] = mediaItem);
+        this.queue.value..[this.queue.value.indexOf(mediaItem)] = mediaItem);
     await super.updateMediaItem(mediaItem);
   }
 
   @override
   Future<void> removeQueueItem(MediaItem mediaItem) async {
-    queue.add(this.queue.value!..remove(mediaItem));
+    queue.add(this.queue.value..remove(mediaItem));
     await super.removeQueueItem(mediaItem);
   }
 
@@ -2747,14 +2747,14 @@ mixin QueueHandler on BaseAudioHandler {
   /// broadcast [queue] element [index] via the stream [mediaItem].
   @override
   Future<void> skipToQueueItem(int index) async {
-    playbackState.add(playbackState.value!.copyWith(queueIndex: index));
-    mediaItem.add(queue.value![index]);
+    playbackState.add(playbackState.value.copyWith(queueIndex: index));
+    mediaItem.add(queue.value[index]);
     await super.skipToQueueItem(index);
   }
 
   Future<void> _skip(int offset) async {
-    final queue = this.queue.value!;
-    final index = playbackState.value!.queueIndex!;
+    final queue = this.queue.value;
+    final index = playbackState.value.queueIndex;
     if (index < 0 || index >= queue.length) return;
     return skipToQueueItem(index + offset);
   }
@@ -2795,11 +2795,11 @@ class AudioServiceConfig {
 
   // A description of the media notification channel, that is
   // visible to user in settings of your app.
-  final String? androidNotificationChannelDescription;
+  final String androidNotificationChannelDescription;
 
   /// The color to use on the background of the notification on Android. This
   /// should be a non-transparent color.
-  final Color? notificationColor;
+  final Color notificationColor;
 
   /// The icon resource to be used in the Android media notification, specified
   /// like an XML resource reference. This should be a monochrome white icon on
@@ -2830,13 +2830,13 @@ class AudioServiceConfig {
   /// downscaled to this maximum pixel width. If the resolution of your artwork
   /// is particularly high, this can help to conserve memory. If specified,
   /// [artDownscaleHeight] must also be specified.
-  final int? artDownscaleWidth;
+  final int artDownscaleWidth;
 
   /// If not null, causes the artwork specified by [MediaItem.artUri] to be
   /// downscaled to this maximum pixel height. If the resolution of your artwork
   /// is particularly high, this can help to conserve memory. If specified,
   /// [artDownscaleWidth] must also be specified.
-  final int? artDownscaleHeight;
+  final int artDownscaleHeight;
 
   /// The interval to be used in [AudioHandler.fastForward]. This value will
   /// also be used on iOS to render the skip-forward button. This value must be
@@ -2860,7 +2860,7 @@ class AudioServiceConfig {
   final bool preloadArtwork;
 
   /// Extras to report on Android in response to an `onGetRoot` request.
-  final Map<String, dynamic>? androidBrowsableRootExtras;
+  final Map<String, dynamic> androidBrowsableRootExtras;
 
   const AudioServiceConfig({
     this.androidResumeOnClick = true,
@@ -2977,7 +2977,7 @@ extension RatingMessageExtension on RatingMessage {
 
 extension AndroidVolumeDirectionMessageExtension
     on AndroidVolumeDirectionMessage {
-  AndroidVolumeDirection toPlugin() => AndroidVolumeDirection.values[index]!;
+  AndroidVolumeDirection toPlugin() => AndroidVolumeDirection.values[index];
 }
 
 extension MediaButtonMessageExtension on MediaButtonMessage {
@@ -3017,15 +3017,15 @@ class RemoteAndroidPlaybackInfo extends AndroidPlaybackInfo {
   final int volume;
 
   RemoteAndroidPlaybackInfo({
-    required this.volumeControlType,
-    required this.maxVolume,
-    required this.volume,
+    @required this.volumeControlType,
+    @required this.maxVolume,
+    @required this.volume,
   });
 
   AndroidPlaybackInfo copyWith({
-    AndroidVolumeControlType? volumeControlType,
-    int? maxVolume,
-    int? volume,
+    AndroidVolumeControlType volumeControlType,
+    int maxVolume,
+    int volume,
   }) =>
       RemoteAndroidPlaybackInfo(
         volumeControlType: volumeControlType ?? this.volumeControlType,
@@ -3062,7 +3062,7 @@ class AudioServiceBackground {
   /// The current queue.
   ///
   /// This is the value most recently set via [setQueue].
-  static List<MediaItem>? get queue => _handler.queue.value;
+  static List<MediaItem> get queue => _handler.queue.value;
 
   /// Broadcasts to all clients the current state, including:
   ///
@@ -3123,19 +3123,19 @@ class AudioServiceBackground {
   ///
   /// The playback [speed] is given as a double where 1.0 means normal speed.
   static Future<void> setState({
-    List<MediaControl>? controls,
-    List<MediaAction>? systemActions,
-    AudioProcessingState? processingState,
-    bool? playing,
-    Duration? position,
-    Duration? bufferedPosition,
-    double? speed,
-    DateTime? updateTime,
-    List<int>? androidCompactActions,
-    AudioServiceRepeatMode? repeatMode,
-    AudioServiceShuffleMode? shuffleMode,
+    List<MediaControl> controls,
+    List<MediaAction> systemActions,
+    AudioProcessingState processingState,
+    bool playing,
+    Duration position,
+    Duration bufferedPosition,
+    double speed,
+    DateTime updateTime,
+    List<int> androidCompactActions,
+    AudioServiceRepeatMode repeatMode,
+    AudioServiceShuffleMode shuffleMode,
   }) async {
-    final oldState = _handler.playbackState.value!;
+    final oldState = _handler.playbackState.value;
     _handler.playbackState.add(PlaybackState(
       controls: controls ?? oldState.controls,
       systemActions: systemActions?.toSet() ?? oldState.systemActions,
@@ -3376,16 +3376,16 @@ class _HandlerCallbacks extends AudioHandlerCallbacks {
   Future<void> updateQueue(UpdateQueueRequest request) => handler
       .updateQueue(request.queue.map((item) => item.toPlugin()).toList());
 
-  final Map<String, ValueStream<Map<String, dynamic>?>> _childrenSubscriptions =
+  final Map<String, ValueStream<Map<String, dynamic>>> _childrenSubscriptions =
       {};
 
   Future<List<MediaItem>> _onLoadChildren(
-      String parentMediaId, Map<String, dynamic>? options) async {
+      String parentMediaId, Map<String, dynamic> options) async {
     var childrenSubscription = _childrenSubscriptions[parentMediaId];
     if (childrenSubscription == null) {
       childrenSubscription = _childrenSubscriptions[parentMediaId] =
           handler.subscribeToChildren(parentMediaId);
-      childrenSubscription.listen((Map<String, dynamic>? options) {
+      childrenSubscription.listen((Map<String, dynamic> options) {
         // Notify clients that the children of [parentMediaId] have changed.
         _platform.notifyChildrenChanged(NotifyChildrenChangedRequest(
           parentMediaId: parentMediaId,

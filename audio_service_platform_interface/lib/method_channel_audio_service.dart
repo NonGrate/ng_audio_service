@@ -11,7 +11,7 @@ class MethodChannelAudioService extends AudioServicePlatform {
   @override
   Future<ConfigureResponse> configure(ConfigureRequest request) async {
     return ConfigureResponse.fromMap((await _clientChannel
-        .invokeMapMethod<String, dynamic>('configure', request.toMap()))!);
+        .invokeMapMethod<String, dynamic>('configure', request.toMap())));
   }
 
   @override
@@ -233,7 +233,7 @@ class MethodChannelAudioService extends AudioServicePlatform {
           await callbacks.androidAdjustRemoteVolume(
               AndroidAdjustRemoteVolumeRequest(
                   direction: AndroidVolumeDirectionMessage
-                      .values[call.arguments['direction']]!));
+                      .values[call.arguments['direction']]));
           return null;
         case 'onTaskRemoved':
           await callbacks.onTaskRemoved(const OnTaskRemovedRequest());
@@ -254,4 +254,4 @@ class MethodChannelAudioService extends AudioServicePlatform {
   }
 }
 
-_castMap(Map? map) => map?.cast<String, dynamic>();
+_castMap(Map map) => map?.cast<String, dynamic>();

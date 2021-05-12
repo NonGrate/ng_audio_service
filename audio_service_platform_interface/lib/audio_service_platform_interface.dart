@@ -274,9 +274,9 @@ class MediaControlMessage {
 
   @literal
   const MediaControlMessage({
-    required this.androidIcon,
-    required this.label,
-    required this.action,
+     this.androidIcon,
+     this.label,
+     this.action,
   });
 
   Map<String, dynamic> toMap() => {
@@ -323,7 +323,7 @@ class PlaybackStateMessage {
   /// Up to 3 indices of the [controls] that should appear in Android's compact
   /// media notification view. When the notification is expanded, all [controls]
   /// will be shown.
-  final List<int>? androidCompactActionIndices;
+  final List<int> androidCompactActionIndices;
 
   /// The set of system actions currently enabled. This is for specifying any
   /// other [MediaActionMessage]s that are not supported by [controls], because they do
@@ -367,10 +367,10 @@ class PlaybackStateMessage {
   final DateTime updateTime;
 
   /// The error code when [processingState] is [AudioProcessingStateMessage.error].
-  final int? errorCode;
+  final int errorCode;
 
   /// The error message when [processingState] is [AudioProcessingStateMessage.error].
-  final String? errorMessage;
+  final String errorMessage;
 
   /// The current repeat mode.
   final AudioServiceRepeatModeMessage repeatMode;
@@ -382,7 +382,7 @@ class PlaybackStateMessage {
   final bool captioningEnabled;
 
   /// The index of the current item in the queue, if any.
-  final int? queueIndex;
+  final int queueIndex;
 
   /// Creates a [PlaybackStateMessage] with given field values, and with [updateTime]
   /// defaulting to [DateTime.now].
@@ -395,7 +395,7 @@ class PlaybackStateMessage {
     this.updatePosition = Duration.zero,
     this.bufferedPosition = Duration.zero,
     this.speed = 1.0,
-    DateTime? updateTime,
+    DateTime updateTime,
     this.errorCode,
     this.errorMessage,
     this.repeatMode = AudioServiceRepeatModeMessage.none,
@@ -493,9 +493,9 @@ class RemoteAndroidPlaybackInfoMessage extends AndroidPlaybackInfoMessage {
 
   @literal
   const RemoteAndroidPlaybackInfoMessage({
-    required this.volumeControlType,
-    required this.maxVolume,
-    required this.volume,
+     this.volumeControlType,
+     this.maxVolume,
+     this.volume,
   });
 
   Map<String, dynamic> toMap() => {
@@ -561,45 +561,45 @@ class MediaItemMessage {
   final String title;
 
   /// The artist of this media item.
-  final String? artist;
+  final String artist;
 
   /// The genre of this media item.
-  final String? genre;
+  final String genre;
 
   /// The duration of this media item.
-  final Duration? duration;
+  final Duration duration;
 
   /// The artwork for this media item as a uri.
-  final Uri? artUri;
+  final Uri artUri;
 
   /// Whether this is playable (i.e. not a folder).
-  final bool? playable;
+  final bool playable;
 
   /// Override the default title for display purposes.
-  final String? displayTitle;
+  final String displayTitle;
 
   /// Override the default subtitle for display purposes.
-  final String? displaySubtitle;
+  final String displaySubtitle;
 
   /// Override the default description for display purposes.
-  final String? displayDescription;
+  final String displayDescription;
 
   /// The rating of the MediaItemMessage.
-  final RatingMessage? rating;
+  final RatingMessage rating;
 
   /// A map of additional metadata for the media item.
   ///
   /// The values must be integers or strings.
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   /// Creates a [MediaItemMessage].
   ///
   /// The [id] must be unique for each instance.
   @literal
   const MediaItemMessage({
-    required this.id,
-    required this.album,
-    required this.title,
+     this.id,
+     this.album,
+     this.title,
     this.artist,
     this.genre,
     this.duration,
@@ -630,7 +630,7 @@ class MediaItemMessage {
         displayDescription: raw['displayDescription'],
         rating:
             raw['rating'] != null ? RatingMessage.fromMap(raw['rating']) : null,
-        extras: (raw['extras'] as Map?)?.cast<String, dynamic>(),
+        extras: (raw['extras'] as Map)?.cast<String, dynamic>(),
       );
 
   /// Converts this [MediaItemMessage] to a map of key/value pairs corresponding to
@@ -655,17 +655,17 @@ class MediaItemMessage {
 /// A rating to attach to a MediaItemMessage.
 class RatingMessage {
   final RatingStyleMessage type;
-  final Object? value;
+  final Object value;
 
   @literal
-  const RatingMessage({required this.type, required this.value});
+  const RatingMessage({this.type, this.value});
 
   /// Returns a percentage rating value greater or equal to 0.0f, or a
   /// negative value if the rating style is not percentage-based, or
   /// if it is unrated.
   double get percentRating {
     if (type != RatingStyleMessage.percentage) return -1;
-    final localValue = value as double?;
+    final localValue = value as double;
     if (localValue == null || localValue < 0 || localValue > 100) return -1;
     return localValue;
   }
@@ -679,7 +679,7 @@ class RatingMessage {
         type != RatingStyleMessage.range5stars) {
       return -1;
     }
-    return value as int? ?? -1;
+    return value as int ?? -1;
   }
 
   /// Returns true if the rating is "heart selected" or false if the
@@ -687,7 +687,7 @@ class RatingMessage {
   /// or if it is unrated.
   bool get hasHeart {
     if (type != RatingStyleMessage.heart) return false;
-    return value as bool? ?? false;
+    return value as bool ?? false;
   }
 
   /// Returns true if the rating is "thumb up" or false if the rating
@@ -695,7 +695,7 @@ class RatingMessage {
   /// it is unrated.
   bool get isThumbUp {
     if (type != RatingStyleMessage.thumbUpDown) return false;
-    return value as bool? ?? false;
+    return value as bool ?? false;
   }
 
   /// Return whether there is a rating value available.
@@ -751,7 +751,7 @@ class OnPlaybackStateChangedRequest {
   final PlaybackStateMessage state;
 
   @literal
-  const OnPlaybackStateChangedRequest({required this.state});
+  const OnPlaybackStateChangedRequest({this.state});
 
   factory OnPlaybackStateChangedRequest.fromMap(Map map) =>
       OnPlaybackStateChangedRequest(
@@ -767,7 +767,7 @@ class OnQueueChangedRequest {
   final List<MediaItemMessage> queue;
 
   @literal
-  const OnQueueChangedRequest({required this.queue});
+  const OnQueueChangedRequest({this.queue});
 
   factory OnQueueChangedRequest.fromMap(Map map) => OnQueueChangedRequest(
       queue: map['queue'] == null
@@ -782,10 +782,10 @@ class OnQueueChangedRequest {
 }
 
 class OnMediaItemChangedRequest {
-  final MediaItemMessage? mediaItem;
+  final MediaItemMessage mediaItem;
 
   @literal
-  const OnMediaItemChangedRequest({required this.mediaItem});
+  const OnMediaItemChangedRequest({this.mediaItem});
 
   factory OnMediaItemChangedRequest.fromMap(Map map) =>
       OnMediaItemChangedRequest(
@@ -805,8 +805,8 @@ class OnChildrenLoadedRequest {
 
   @literal
   const OnChildrenLoadedRequest({
-    required this.parentMediaId,
-    required this.children,
+    this.parentMediaId,
+    this.children,
   });
 
   factory OnChildrenLoadedRequest.fromMap(Map map) => OnChildrenLoadedRequest(
@@ -821,7 +821,7 @@ class OnNotificationClickedRequest {
   final bool clicked;
 
   @literal
-  const OnNotificationClickedRequest({required this.clicked});
+  const OnNotificationClickedRequest({this.clicked});
 
   factory OnNotificationClickedRequest.fromMap(Map map) =>
       OnNotificationClickedRequest(
@@ -837,7 +837,7 @@ class SetStateRequest {
   final PlaybackStateMessage state;
 
   @literal
-  const SetStateRequest({required this.state});
+  const SetStateRequest({this.state});
 
   Map<String, dynamic> toMap() => {
         'state': state.toMap(),
@@ -848,7 +848,7 @@ class SetQueueRequest {
   final List<MediaItemMessage> queue;
 
   @literal
-  const SetQueueRequest({required this.queue});
+  const SetQueueRequest({this.queue});
 
   Map<String, dynamic> toMap() => {
         'queue': queue.map((item) => item.toMap()).toList(),
@@ -858,7 +858,7 @@ class SetQueueRequest {
 class SetMediaItemRequest {
   final MediaItemMessage mediaItem;
 
-  const SetMediaItemRequest({required this.mediaItem});
+  const SetMediaItemRequest({this.mediaItem});
 
   Map<String, dynamic> toMap() => {
         'mediaItem': mediaItem.toMap(),
@@ -876,7 +876,7 @@ class SetAndroidPlaybackInfoRequest {
   final AndroidPlaybackInfoMessage playbackInfo;
 
   @literal
-  const SetAndroidPlaybackInfoRequest({required this.playbackInfo});
+  const SetAndroidPlaybackInfoRequest({this.playbackInfo});
 
   Map<String, dynamic> toMap() => {
         'playbackInfo': playbackInfo.toMap(),
@@ -892,11 +892,11 @@ class AndroidForceEnableMediaButtonsRequest {
 
 class NotifyChildrenChangedRequest {
   final String parentMediaId;
-  final Map<String, dynamic>? options;
+  final Map<String, dynamic> options;
 
   @literal
   const NotifyChildrenChangedRequest({
-    required this.parentMediaId,
+    this.parentMediaId,
     this.options,
   });
 
@@ -915,10 +915,10 @@ class PrepareRequest {
 
 class PrepareFromMediaIdRequest {
   final String mediaId;
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   @literal
-  const PrepareFromMediaIdRequest({required this.mediaId, this.extras});
+  const PrepareFromMediaIdRequest({this.mediaId, this.extras});
 
   Map<String, dynamic> toMap() => {
         'mediaId': mediaId,
@@ -927,10 +927,10 @@ class PrepareFromMediaIdRequest {
 
 class PrepareFromSearchRequest {
   final String query;
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   @literal
-  const PrepareFromSearchRequest({required this.query, this.extras});
+  const PrepareFromSearchRequest({this.query, this.extras});
 
   Map<String, dynamic> toMap() => {
         'query': query,
@@ -940,10 +940,10 @@ class PrepareFromSearchRequest {
 
 class PrepareFromUriRequest {
   final Uri uri;
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   @literal
-  const PrepareFromUriRequest({required this.uri, this.extras});
+  const PrepareFromUriRequest({ this.uri, this.extras});
 
   Map<String, dynamic> toMap() => {
         'uri': uri.toString(),
@@ -960,10 +960,10 @@ class PlayRequest {
 
 class PlayFromMediaIdRequest {
   final String mediaId;
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   @literal
-  const PlayFromMediaIdRequest({required this.mediaId, this.extras});
+  const PlayFromMediaIdRequest({ this.mediaId, this.extras});
 
   Map<String, dynamic> toMap() => {
         'mediaId': mediaId,
@@ -972,10 +972,10 @@ class PlayFromMediaIdRequest {
 
 class PlayFromSearchRequest {
   final String query;
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   @literal
-  const PlayFromSearchRequest({required this.query, this.extras});
+  const PlayFromSearchRequest({ this.query, this.extras});
 
   Map<String, dynamic> toMap() => {
         'query': query,
@@ -985,10 +985,10 @@ class PlayFromSearchRequest {
 
 class PlayFromUriRequest {
   final Uri uri;
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   @literal
-  const PlayFromUriRequest({required this.uri, this.extras});
+  const PlayFromUriRequest({ this.uri, this.extras});
 
   Map<String, dynamic> toMap() => {
         'uri': uri.toString(),
@@ -1000,7 +1000,7 @@ class PlayMediaItemRequest {
   final MediaItemMessage mediaItem;
 
   @literal
-  const PlayMediaItemRequest({required this.mediaItem});
+  const PlayMediaItemRequest({ this.mediaItem});
 
   Map<String, dynamic> toMap() => {
         'mediaItem': mediaItem.toString(),
@@ -1018,7 +1018,7 @@ class ClickRequest {
   final MediaButtonMessage button;
 
   @literal
-  const ClickRequest({required this.button});
+  const ClickRequest({ this.button});
 
   Map<String, dynamic> toMap() => {
         'button': button.index,
@@ -1036,7 +1036,7 @@ class AddQueueItemRequest {
   final MediaItemMessage mediaItem;
 
   @literal
-  const AddQueueItemRequest({required this.mediaItem});
+  const AddQueueItemRequest({ this.mediaItem});
 
   Map<String, dynamic> toMap() => {
         'mediaItem': mediaItem.toMap(),
@@ -1048,7 +1048,7 @@ class AddQueueItemsRequest {
   final List<MediaItemMessage> queue;
 
   @literal
-  const AddQueueItemsRequest({required this.queue});
+  const AddQueueItemsRequest({ this.queue});
 
   Map<String, dynamic> toMap() => {
         'queue': queue.map((item) => item.toMap()).toList(),
@@ -1060,7 +1060,7 @@ class InsertQueueItemRequest {
   final MediaItemMessage mediaItem;
 
   @literal
-  const InsertQueueItemRequest({required this.index, required this.mediaItem});
+  const InsertQueueItemRequest({ this.index,  this.mediaItem});
 
   Map<String, dynamic> toMap() => {
         'index': index,
@@ -1072,7 +1072,7 @@ class UpdateQueueRequest {
   final List<MediaItemMessage> queue;
 
   @literal
-  const UpdateQueueRequest({required this.queue});
+  const UpdateQueueRequest({ this.queue});
 
   Map<String, dynamic> toMap() => {
         'queue': queue.map((item) => item.toMap()).toList(),
@@ -1083,7 +1083,7 @@ class UpdateMediaItemRequest {
   final MediaItemMessage mediaItem;
 
   @literal
-  const UpdateMediaItemRequest({required this.mediaItem});
+  const UpdateMediaItemRequest({ this.mediaItem});
 
   Map<String, dynamic> toMap() => {
         'mediaItem': mediaItem.toMap(),
@@ -1094,7 +1094,7 @@ class RemoveQueueItemRequest {
   final MediaItemMessage mediaItem;
 
   @literal
-  const RemoveQueueItemRequest({required this.mediaItem});
+  const RemoveQueueItemRequest({ this.mediaItem});
 
   Map<String, dynamic> toMap() => {
         'mediaItem': mediaItem.toMap(),
@@ -1105,7 +1105,7 @@ class RemoveQueueItemAtRequest {
   final int index;
 
   @literal
-  const RemoveQueueItemAtRequest({required this.index});
+  const RemoveQueueItemAtRequest({ this.index});
 
   Map<String, dynamic> toMap() => {
         'index': index,
@@ -1144,7 +1144,7 @@ class SkipToQueueItemRequest {
   final int index;
 
   @literal
-  const SkipToQueueItemRequest({required this.index});
+  const SkipToQueueItemRequest({ this.index});
 
   Map<String, dynamic> toMap() => {
         'index': index,
@@ -1155,7 +1155,7 @@ class SeekRequest {
   final Duration position;
 
   @literal
-  const SeekRequest({required this.position});
+  const SeekRequest({ this.position});
 
   Map<String, dynamic> toMap() => {
         'position': position.inMicroseconds,
@@ -1164,10 +1164,10 @@ class SeekRequest {
 
 class SetRatingRequest {
   final RatingMessage rating;
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   @literal
-  const SetRatingRequest({required this.rating, this.extras});
+  const SetRatingRequest({ this.rating, this.extras});
 
   Map<String, dynamic> toMap() => {
         'rating': rating.toMap(),
@@ -1179,7 +1179,7 @@ class SetCaptioningEnabledRequest {
   final bool enabled;
 
   @literal
-  const SetCaptioningEnabledRequest({required this.enabled});
+  const SetCaptioningEnabledRequest({ this.enabled});
 
   Map<String, dynamic> toMap() => {
         'enabled': enabled,
@@ -1190,7 +1190,7 @@ class SetRepeatModeRequest {
   final AudioServiceRepeatModeMessage repeatMode;
 
   @literal
-  const SetRepeatModeRequest({required this.repeatMode});
+  const SetRepeatModeRequest({ this.repeatMode});
 
   Map<String, dynamic> toMap() => {
         'repeatMode': repeatMode.index,
@@ -1201,7 +1201,7 @@ class SetShuffleModeRequest {
   final AudioServiceShuffleModeMessage shuffleMode;
 
   @literal
-  const SetShuffleModeRequest({required this.shuffleMode});
+  const SetShuffleModeRequest({ this.shuffleMode});
 
   Map<String, dynamic> toMap() => {
         'shuffleMode': shuffleMode.index,
@@ -1212,7 +1212,7 @@ class SeekBackwardRequest {
   final bool begin;
 
   @literal
-  const SeekBackwardRequest({required this.begin});
+  const SeekBackwardRequest({ this.begin});
 
   Map<String, dynamic> toMap() => {
         'begin': begin,
@@ -1223,7 +1223,7 @@ class SeekForwardRequest {
   final bool begin;
 
   @literal
-  const SeekForwardRequest({required this.begin});
+  const SeekForwardRequest({ this.begin});
 
   Map<String, dynamic> toMap() => {
         'begin': begin,
@@ -1234,7 +1234,7 @@ class SetSpeedRequest {
   final double speed;
 
   @literal
-  const SetSpeedRequest({required this.speed});
+  const SetSpeedRequest({ this.speed});
 
   Map<String, dynamic> toMap() => {
         'speed': speed,
@@ -1243,10 +1243,10 @@ class SetSpeedRequest {
 
 class CustomActionRequest {
   final String name;
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   @literal
-  const CustomActionRequest({required this.name, this.extras});
+  const CustomActionRequest({ this.name, this.extras});
 
   Map<String, dynamic> toMap() => {
         'name': name,
@@ -1270,10 +1270,10 @@ class OnNotificationDeletedRequest {
 
 class GetChildrenRequest {
   final String parentMediaId;
-  final Map<String, dynamic>? options;
+  final Map<String, dynamic> options;
 
   @literal
-  const GetChildrenRequest({required this.parentMediaId, this.options});
+  const GetChildrenRequest({ this.parentMediaId, this.options});
 
   Map<String, dynamic> toMap() => {
         'parentMediaId': parentMediaId,
@@ -1285,7 +1285,7 @@ class GetChildrenResponse {
   final List<MediaItemMessage> children;
 
   @literal
-  const GetChildrenResponse({required this.children});
+  const GetChildrenResponse({ this.children});
 
   Map<String, dynamic> toMap() => {
         'children': children.map((item) => item.toMap()).toList(),
@@ -1296,7 +1296,7 @@ class GetMediaItemRequest {
   final String mediaId;
 
   @literal
-  const GetMediaItemRequest({required this.mediaId});
+  const GetMediaItemRequest({ this.mediaId});
 
   Map<String, dynamic> toMap() => {
         'mediaId': mediaId,
@@ -1304,22 +1304,22 @@ class GetMediaItemRequest {
 }
 
 class GetMediaItemResponse {
-  final MediaItemMessage? mediaItem;
+  final MediaItemMessage mediaItem;
 
   @literal
-  const GetMediaItemResponse({required this.mediaItem});
+  const GetMediaItemResponse({ this.mediaItem});
 
   Map<String, dynamic> toMap() => {
-        'mediaItem': mediaItem?.toMap(),
+        'mediaItem': mediaItem.toMap(),
       };
 }
 
 class SearchRequest {
   final String query;
-  final Map<String, dynamic>? extras;
+  final Map<String, dynamic> extras;
 
   @literal
-  const SearchRequest({required this.query, this.extras});
+  const SearchRequest({ this.query, this.extras});
 
   Map<String, dynamic> toMap() => {
         'query': query,
@@ -1331,7 +1331,7 @@ class SearchResponse {
   final List<MediaItemMessage> mediaItems;
 
   @literal
-  const SearchResponse({required this.mediaItems});
+  const SearchResponse({ this.mediaItems});
 
   Map<String, dynamic> toMap() => {
         'mediaItems': mediaItems.map((item) => item.toMap()).toList(),
@@ -1342,7 +1342,7 @@ class AndroidSetRemoteVolumeRequest {
   final int volumeIndex;
 
   @literal
-  const AndroidSetRemoteVolumeRequest({required this.volumeIndex});
+  const AndroidSetRemoteVolumeRequest({ this.volumeIndex});
 
   Map<String, dynamic> toMap() => {
         'volumeIndex': volumeIndex,
@@ -1353,7 +1353,7 @@ class AndroidAdjustRemoteVolumeRequest {
   final AndroidVolumeDirectionMessage direction;
 
   @literal
-  const AndroidAdjustRemoteVolumeRequest({required this.direction});
+  const AndroidAdjustRemoteVolumeRequest({ this.direction});
 
   Map<String, dynamic> toMap() => {
         'direction': direction.index,
@@ -1364,7 +1364,7 @@ class ConfigureRequest {
   final AudioServiceConfigMessage config;
 
   @literal
-  const ConfigureRequest({required this.config});
+  const ConfigureRequest({ this.config});
 
   Map<String, dynamic> toMap() => {
         'config': config.toMap(),
@@ -1392,11 +1392,11 @@ class AudioServiceConfigMessage {
 
   // A description of the media notification channel, that is
   // visible to user in settings of your app.
-  final String? androidNotificationChannelDescription;
+  final String androidNotificationChannelDescription;
 
   /// The color to use on the background of the notification on Android. This
   /// should be a non-transparent color.
-  final Color? notificationColor;
+  final Color notificationColor;
 
   /// The icon resource to be used in the Android media notification, specified
   /// like an XML resource reference. This should be a monochrome white icon on
@@ -1427,13 +1427,13 @@ class AudioServiceConfigMessage {
   /// downscaled to this maximum pixel width. If the resolution of your artwork
   /// is particularly high, this can help to conserve memory. If specified,
   /// [artDownscaleHeight] must also be specified.
-  final int? artDownscaleWidth;
+  final int artDownscaleWidth;
 
   /// If not null, causes the artwork specified by [MediaItemMessage.artUri] to be
   /// downscaled to this maximum pixel height. If the resolution of your artwork
   /// is particularly high, this can help to conserve memory. If specified,
   /// [artDownscaleWidth] must also be specified.
-  final int? artDownscaleHeight;
+  final int artDownscaleHeight;
 
   /// The interval to be used in [AudioHandlerCallbacks.fastForward]. This value will
   /// also be used on iOS to render the skip-forward button. This value must be
@@ -1459,7 +1459,7 @@ class AudioServiceConfigMessage {
   final bool preloadArtwork;
 
   /// Extras to report on Android in response to an `onGetRoot` request.
-  final Map<String, dynamic>? androidBrowsableRootExtras;
+  final Map<String, dynamic> androidBrowsableRootExtras;
 
   @literal
   const AudioServiceConfigMessage({
