@@ -10,7 +10,13 @@ environment:
 dependencies:
   # Use these deps for local development
   audio_service_platform_interface:
-    path: ../audio_service_platform_interface
+    # For local use:
+    # path: ../audio_service_platform_interface
+    git:
+      url: https://github.com/NonGrate/ng_audio_service.git
+      ref: c377b6564eabe2253a9800c0a34c140c25ac777c
+      path: audio_service_platform_interface
+
 
   # Use these deps when pushing to origin (for the benefit of testers)
 #  audio_service_platform_interface:
